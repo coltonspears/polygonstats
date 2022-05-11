@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PolygonStats
 {
-    class MySQLConnectionManager
+    public class MySQLConnectionManager
     {
         public MySQLContext GetContext() {
             return new MySQLContext();

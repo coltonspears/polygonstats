@@ -2,7 +2,6 @@
 using System.Text;
 using System.Net.Sockets;
 using NetCoreServer;
-using System.Text.Json;
 using POGOProtos.Rpc;
 using Google.Protobuf.Collections;
 using static System.Linq.Queryable;
@@ -15,6 +14,10 @@ using PolygonStats.RawWebhook;
 using System.Globalization;
 using System.Threading;
 using PolyConfig = PolygonStats.Configuration.ConfigurationManager;
+using PolygonStats.Plugins;
+using Method = POGOProtos.Rpc.Method;
+using Newtonsoft.Json;
+using JsonException = Newtonsoft.Json.JsonException;
 
 namespace PolygonStats
 {
@@ -28,13 +31,15 @@ namespace PolygonStats
 
         private int messageCount = 0;
         private ILogger logger;
+        private PluginManager _pluginManager;
 
         private DateTime lastMessageDateTime = DateTime.UtcNow;
         private WildPokemonProto lastEncounterPokemon = null;
         private Dictionary<ulong, DateTime> holoPokemon = new();
 
-        public ClientSession(TcpServer server) : base(server)
+        public ClientSession(TcpServer server, PluginManager pluginManager) : base(server)
         {
+            _pluginManager = pluginManager;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             if (PolyConfig.Shared.Config.Debug.ToFiles)
             {
@@ -117,7 +122,7 @@ namespace PolygonStats
                 }
                 try
                 {
-                    MessageObject message = JsonSerializer.Deserialize<MessageObject>(trimedJsonString);
+                    MessageObject message = JsonConvert.DeserializeObject<MessageObject>(trimedJsonString);
 
                     if (PolyConfig.Shared.Config.Debug.DebugMessages)
                     {
@@ -195,21 +200,25 @@ namespace PolygonStats
 
         private void HandlePayload(Payload payload)
         {
+            if(PolyConfig.Shared.Config.Plugin.Enabled)
+            {
+                _pluginManager.HandlePayload(payload);
+            }
             logger.Debug($"Payload with type {payload.getMethodType():g}");
             switch (payload.getMethodType())
             {
                 case Method.CheckAwardedBadges:
                     var badge = CheckAwardedBadgesOutProto.Parser.ParseFrom(payload.getDate());
-                    logger.Debug($"Proto: {JsonSerializer.Serialize(badge)}");
+                    logger.Debug($"Proto: {JsonConvert.SerializeObject(badge)}");
                     break;
                 case Method.Encounter:
                     var encounter = EncounterOutProto.Parser.ParseFrom(payload.getDate());
-                    logger.Debug($"Proto: {JsonSerializer.Serialize(encounter)}");
+                    logger.Debug($"Proto: {JsonConvert.SerializeObject(encounter)}");
                     ProcessEncounter(payload.account_name, encounter, payload);
                     break;
                 case Method.CatchPokemon:
                     var caught = CatchPokemonOutProto.Parser.ParseFrom(payload.getDate());
-                    logger.Debug($"Proto: {JsonSerializer.Serialize(caught)}");
+                    logger.Debug($"Proto: {JsonConvert.SerializeObject(caught)}");
                     ProcessCaughtPokemon(caught);
                     break;
                 case Method.GymFeedPokemon:
@@ -293,7 +302,7 @@ namespace PolygonStats
                     break;
                 case Method.GetHoloholoInventory:
                     var holoInventory = GetHoloholoInventoryOutProto.Parser.ParseFrom(payload.getDate());
-                    logger.Debug($"Proto: {JsonSerializer.Serialize(holoInventory)}");
+                    logger.Debug($"Proto: {JsonConvert.SerializeObject(holoInventory)}");
                     ProcessHoloHoloInventory(payload.account_name, holoInventory);
                     break;
                 case Method.InvasionBattleUpdate:
@@ -315,7 +324,7 @@ namespace PolygonStats
                     break;
                 case Method.GetPlayer:
                     var player = GetPlayerOutProto.Parser.ParseFrom(payload.getDate());
-                    ProcessPlayer(payload.account_name, player, int.Parse(payload.level));
+                    ProcessPlayer(payload.account_name, player, payload.level);
                     break;
                 default:
                     break;

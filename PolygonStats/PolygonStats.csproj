@@ -38,4 +38,9 @@
     <Protobuf Include="protos\base\vbase.proto" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Plugins\Pokebox\" />
+    <Folder Include="Plugins\Pokedex\" />
+  </ItemGroup>
+
 </Project>

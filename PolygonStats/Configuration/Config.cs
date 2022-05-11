@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace PolygonStats.Configuration
 {
@@ -10,6 +11,7 @@ namespace PolygonStats.Configuration
         public RawDataSettings RawData { get; set; }
         public MysqlSettings MySql { get; set; }
         public MadExportSettings MadExport { get; set; }
+        public PluginSettings Plugin { get; set; }
         public EncounterSettings Encounter { get; set; }
 
 
@@ -49,6 +51,11 @@ namespace PolygonStats.Configuration
         {
             public bool Enabled { get; set; }
             public string ConnectionString { get; set; }
+        }
+        public class PluginSettings
+        {
+            public bool Enabled { get; set; }
+            public string PluginPath { get; set; }
         }
 
         public class EncounterSettings
@@ -112,13 +119,19 @@ namespace PolygonStats.Configuration
             MySql = new MysqlSettings()
             {
                 Enabled = false,
-                ConnectionString = "server=localhost; port=3306; database=mysqldotnet; user=mysqldotnetuser; password=Pa55w0rd!; Persist Security Info=false; Connect Timeout=300"
+                ConnectionString = "server=localhost; port=3306; database=polygon; user=poly; password=polygon; Persist Security Info=false; Connect Timeout=300"
             };
 
             MadExport = new MadExportSettings()
             {
                 Enabled = false,
-                ConnectionString = "server=localhost; port=3306; database=mysqldotnet; user=mysqldotnetuser; password=Pa55w0rd!; Persist Security Info=false; Connect Timeout=300"
+                ConnectionString = "server=localhost; port=3306; database=rocket; user=poly; password=polygon; Persist Security Info=false; Connect Timeout=300"
+            };
+
+            Plugin = new PluginSettings
+            {
+                Enabled = true,
+                PluginPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}plugins"
             };
 
             Encounter = new EncounterSettings()

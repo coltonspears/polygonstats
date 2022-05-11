@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace PolygonStats.Configuration
 {
-    class ConfigurationManager
+    public class ConfigurationManager
     {
         private string JsonSource { get; set; } = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}Config.json";
         private static readonly Lazy<ConfigurationManager> _shared = new(() => new ConfigurationManager());

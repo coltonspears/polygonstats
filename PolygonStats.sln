@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolygonStats", "PolygonStats\PolygonStats.csproj", "{28546A96-F57D-4141-AFD1-603B252B4379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolygonStats", "PolygonStats\PolygonStats.csproj", "{28546A96-F57D-4141-AFD1-603B252B4379}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex", "Pokedex\Pokedex.csproj", "{BCA6AD87-0FB8-477F-9F7F-84071531E94E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokebox", "Pokebox\Pokebox.csproj", "{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

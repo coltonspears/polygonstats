@@ -5,7 +5,7 @@ using PolygonStats.Models;
 
 namespace PolygonStats
 {
-    class MySQLContext : DbContext
+    public class MySQLContext : DbContext
     {
         public DbSet<Encounter> Encounters { get; set; }
         public DbSet<Account> Accounts { get; set; }

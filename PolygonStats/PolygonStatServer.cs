@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using NetCoreServer;
+using PolygonStats.Plugins;
 using Serilog;
 
 namespace PolygonStats
@@ -11,13 +12,15 @@ namespace PolygonStats
     {
         private Timer cleanTimer;
         private int currentCount = int.MinValue;
+        private PluginManager _pluginManager;
 
-        public PolygonStatServer(IPAddress address, int port) : base(address, port)
+        public PolygonStatServer(IPAddress address, int port, PluginManager pluginManager) : base(address, port)
         {
+            _pluginManager = pluginManager;
             cleanTimer = new Timer(DoCleanTimer, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
         }
 
-        protected override TcpSession CreateSession() { return new ClientSession(this); }
+        protected override TcpSession CreateSession() { return new ClientSession(this, _pluginManager); }
 
         protected override void OnError(SocketError error)
         {

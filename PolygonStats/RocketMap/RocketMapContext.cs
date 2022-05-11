@@ -19,7 +19,7 @@ namespace PolygonStats.RocketMap
         public string calc_endminsec { get; set; }
     }
 
-    class RocketMapContext : DbContext
+    internal class RocketMapContext : DbContext
     {
         public DbSet<Spawnpoint> Spawnpoints { get; set; }
 

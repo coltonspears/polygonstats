@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using POGOProtos.Rpc;
 
 namespace PolygonStats
@@ -12,7 +13,10 @@ namespace PolygonStats
         public double lng { get; set; }
         public long timestamp { get; set; }
         public string token { get; set; }
-        public string level { get; set; }
+
+        public int level { get; set; }
+
+
         public string account_name { get; set; }
         public string account_id { get; set; }
 

@@ -9,7 +9,7 @@ namespace PolygonStats.Models
 {
 
     [Table("Account")]
-    class Account
+    public class Account
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

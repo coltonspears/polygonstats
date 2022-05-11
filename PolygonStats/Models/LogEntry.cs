@@ -19,7 +19,7 @@ namespace PolygonStats.Models
     }
 
     [Table("SessionLogEntry")]
-    class LogEntry
+    public class LogEntry
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -38,6 +38,7 @@ namespace PolygonStats.Models
 
         [Column(TypeName = "nvarchar(24)")]
         public HoloPokemonId PokemonName { get; set; }
+        public int PokedexId { get; set; }
         public int Attack { get; set; }
         public int Defense { get; set; }
         public int Stamina { get; set; }

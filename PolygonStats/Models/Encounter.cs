@@ -7,7 +7,7 @@ namespace PolygonStats.Models
 {
 
     [Table("Encounter")]
-    class Encounter
+    public class Encounter
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

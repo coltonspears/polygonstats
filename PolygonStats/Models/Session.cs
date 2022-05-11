@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PolygonStats.Models
 {
     [Table("Session")]
-    class Session
+    public class Session
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
