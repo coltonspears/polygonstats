@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PolygonStats\PolygonStats.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(TargetDir)*$(TargetExt)&quot; &quot;$(TargetDir)..&quot;" />
+  </Target>
+
 </Project>

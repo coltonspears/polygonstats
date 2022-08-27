@@ -1,0 +1,3 @@
+﻿Add-Migration AddDefaultDates -StartupProject Pokedex -Context PokedexContext -Project Pokedex
+
+Update-Database -StartupProject Pokedex -Context PokedexContext -Project Pokedex

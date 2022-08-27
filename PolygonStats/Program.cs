@@ -13,10 +13,11 @@ namespace PolygonStats
     {
         static void Main(string[] args)
         {
-            PluginManager pluginManager = new PluginManager();
+            //PluginManager pluginManager = new PluginManager();
 
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
                 .WriteTo.Console()
+                .WriteTo.Seq("http://localhost:5432")
                 .WriteTo.File("logs/main.log", rollingInterval: RollingInterval.Day);
 
             if (ConfigurationManager.Shared.Config.Debug.Debug)
@@ -50,18 +51,20 @@ namespace PolygonStats
 
             if (ConfigurationManager.Shared.Config.Plugin.Enabled)
             {
-                pluginManager.LoadPlugins();
+                //PluginManager pluginManager = PluginManager.Shared.
 
-                foreach (var key in pluginManager.Plugins.Keys)
+                PluginManager.Shared.LoadPlugins();
+
+                foreach (var key in PluginManager.Shared.Plugins.Keys)
                 {
-                    pluginManager.Plugins[key].Start();
+                    PluginManager.Shared.Plugins[key].Start();
                 }
 
-                pluginManager.FindDbContextsInAssemblies();
+                PluginManager.Shared.FindDbContextsInAssemblies();
             }
 
             // Create a new TCP chat server
-            var server = new PolygonStatServer(IPAddress.Any, ConfigurationManager.Shared.Config.Backend.Port, pluginManager);
+            var server = new PolygonStatServer(IPAddress.Any, ConfigurationManager.Shared.Config.Backend.Port);
 
 
             

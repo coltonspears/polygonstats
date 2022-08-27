@@ -11,15 +11,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PolygonStats.Plugins
 {
-    public class PluginManager
+    public sealed class PluginManager
     {
-        public Dictionary<string, IPolygonPlugin> Plugins { get; private set; }
-        public string PluginPath { get; set; }
-        public PluginManager()
-        {
-            Plugins = new Dictionary<string, IPolygonPlugin>();
-            PluginPath = ConfigurationManager.Shared.Config.Plugin.PluginPath;
-        }
+        public PluginManager() { }
+
+        private static readonly Lazy<PluginManager> _shared = new(() => new PluginManager());
+        public static PluginManager Shared => _shared.Value;
+
+        public Dictionary<string, IPolygonPlugin> Plugins { get; private set; } = new Dictionary<string, IPolygonPlugin>();
+        public Dictionary<Type, List<object>> PluginDBContexts = new Dictionary<Type, List<object>>();
+        public static string PluginPath => ConfigurationManager.Shared.Config.Plugin.PluginPath;
+        
         public void LoadPlugins()
         {
             foreach(var dll in Directory.GetFiles(PluginPath, "*.dll"))
@@ -32,12 +34,27 @@ namespace PolygonStats.Plugins
                         IPolygonPlugin plugin = Activator.CreateInstance(type) as IPolygonPlugin;
                         Plugins.Add(Path.GetFileNameWithoutExtension(dll), plugin);
                     }
+                    if (type.IsSubclassOf(typeof(DbContext)))
+                    {
+                        // Instantiate DbContext:
+                        var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
+
+                        // Find method to get entities:
+                        var model = type.GetProperty("Model");
+                        var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
+
+                        // Get registered entities:
+                        var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
+
+                        PluginDBContexts[type] = entities;
+                    }
                 }
+
             }
         }
         public void HandlePayload(Payload payload)
         {
-            foreach (IPolygonPlugin plugin in Plugins.Values)
+            foreach (IPolygonPlugin plugin in Shared.Plugins.Values)
             {
                 plugin.HandlePayload(payload);
             }
@@ -64,6 +81,9 @@ namespace PolygonStats.Plugins
                         // Get registered entities:
                         var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
 
+                        var optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(type);
+                        var optionsBuilder = (DbContextOptionsBuilder)Activator.CreateInstance(optionsBuilderType);
+                        var dbCtx = (DbContext)Activator.CreateInstance(type);
                         dbContexts[type] = entities;
                     }
                 }

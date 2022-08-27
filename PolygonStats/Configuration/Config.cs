@@ -92,9 +92,9 @@ namespace PolygonStats.Configuration
         {
             Debug = new DebugSettings()
             {
-                Debug = false,
+                Debug = true,
                 ToFiles = false,
-                DebugMessages = false
+                DebugMessages = true
             };
 
             Backend = new BackendSocketSettings()

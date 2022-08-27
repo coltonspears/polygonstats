@@ -258,6 +258,12 @@ namespace PolygonStats
                 }
             }
         }
+        public static int GetAccountId(string accountName)
+        {
+            using var context = new MySQLContext();
+            Account account = context.Accounts.Where(a => a.Name == accountName).FirstOrDefault<Account>();
+            return account.Id;
+        }
 
         internal void UpdateLevelAndExp(int accountId, PlayerStatsProto playerStats)
         {

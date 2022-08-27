@@ -41,6 +41,8 @@ namespace PolygonStats.RocketMap
 
         public void AddEncounter(EncounterOutProto encounter, Payload payload)
         {
+            PokemonProto poke = encounter.Pokemon.Pokemon;
+            Log.Information($"[{payload.account_name}]\t[Encounter]\t{poke.PokemonId}\t{poke.Cp}CP\t{poke.IndividualAttack}/{poke.IndividualDefense}/{poke.IndividualStamina}");
             using (var context = new RocketMapContext())
             {
                 long spawnpointId = Convert.ToInt64(encounter.Pokemon.SpawnPointId, 16);

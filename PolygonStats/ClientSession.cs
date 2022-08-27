@@ -18,6 +18,7 @@ using PolygonStats.Plugins;
 using Method = POGOProtos.Rpc.Method;
 using Newtonsoft.Json;
 using JsonException = Newtonsoft.Json.JsonException;
+using Newtonsoft.Json.Schema;
 
 namespace PolygonStats
 {
@@ -26,29 +27,30 @@ namespace PolygonStats
         private StringBuilder messageBuffer = new StringBuilder();
         private string accountName = null;
         private MySQLConnectionManager dbManager = new();
+        private PluginManager pluginManager = new();
         private int dbSessionId = -1;
         private int accountId;
 
         private int messageCount = 0;
         private ILogger logger;
-        private PluginManager _pluginManager;
 
         private DateTime lastMessageDateTime = DateTime.UtcNow;
         private WildPokemonProto lastEncounterPokemon = null;
         private Dictionary<ulong, DateTime> holoPokemon = new();
 
-        public ClientSession(TcpServer server, PluginManager pluginManager) : base(server)
+        public ClientSession(TcpServer server) : base(server)
         {
-            _pluginManager = pluginManager;
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-GB");
             if (PolyConfig.Shared.Config.Debug.ToFiles)
             {
                 LoggerConfiguration configuration = new LoggerConfiguration()
+                    .WriteTo.Seq("http://localhost:5432")
                     .WriteTo.File($"logs/sessions/{Id}.log", rollingInterval: RollingInterval.Day);
                 configuration = PolyConfig.Shared.Config.Debug.Debug
                     ? configuration.MinimumLevel.Debug()
                     : configuration.MinimumLevel.Information();
                 logger = configuration.CreateLogger();
+
             } else
             {
                 logger = Log.Logger;
@@ -59,7 +61,7 @@ namespace PolygonStats
 
         protected override void OnConnected()
         {
-            this.Socket.ReceiveBufferSize = 8192 * 4;
+            this.Socket.ReceiveBufferSize = 65536;
             this.Socket.ReceiveTimeout = 10000;
         }
 
@@ -122,7 +124,23 @@ namespace PolygonStats
                 }
                 try
                 {
+
                     MessageObject message = JsonConvert.DeserializeObject<MessageObject>(trimedJsonString);
+                    var message2 = JsonConvert.DeserializeObject<MessageObject>(trimedJsonString, new ProtobufConverter());
+
+                    for (int i = 0; i <= message.payloads.Count - 1; i++)
+                    {
+                        //Console.WriteLine($"{i}: \t{message.payloads[i].proto.Length}\t {message2.payloads[i].proto.Length}\t{message.payloads[i].proto.Length - message2.payloads[i].proto.Length}\t{(Method)message.payloads[i].type}");
+                        if (message.payloads[i].proto.Length - message2.payloads[i].proto.Length != 0)
+                        {
+                            Console.WriteLine("An oopsie has occurred!");
+                        }    
+                    }
+
+                    if (!JSONValidator.IsValidJson(trimedJsonString))
+                    {
+                        Console.WriteLine("Invalid JSON detected...");
+                    }
 
                     if (PolyConfig.Shared.Config.Debug.DebugMessages)
                     {
@@ -175,7 +193,8 @@ namespace PolygonStats
 
                 if (PolyConfig.Shared.Config.MySql.Enabled)
                 {
-                    using var context = dbManager.GetContext(); Account account = context.Accounts.Where(a => a.Name == this.accountName).FirstOrDefault<Account>();
+                    using var context = dbManager.GetContext(); 
+                    Account account = context.Accounts.Where(a => a.Name == this.accountName).FirstOrDefault<Account>();
                     if (account == null)
                     {
                         account = new Account
@@ -198,11 +217,12 @@ namespace PolygonStats
 
         private Stats GetStatEntry() => PolyConfig.Shared.Config.Http.Enabled ? StatManager.sharedInstance.getEntry(accountName) : null;
 
+
         private void HandlePayload(Payload payload)
         {
             if(PolyConfig.Shared.Config.Plugin.Enabled)
             {
-                _pluginManager.HandlePayload(payload);
+                pluginManager.HandlePayload(payload);
             }
             logger.Debug($"Payload with type {payload.getMethodType():g}");
             switch (payload.getMethodType())
