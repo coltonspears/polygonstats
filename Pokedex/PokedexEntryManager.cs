@@ -1,5 +1,7 @@
 ﻿using POGOProtos.Rpc;
 using Pokedex.Models;
+using PolygonStats;
+using PolygonStats.Models;
 using PolygonStats.Plugins;
 using System;
 using System.Collections.Generic;
@@ -16,17 +18,21 @@ namespace Pokedex
         private int mAccountId;
         private PokedexEntryProto mEntry;
         private PokedexContext mPokedexContext;
-
+        private MySQLContext mPolygonContext;
 
         public PokedexEntryManager()
         {
             mPokedexContext = new PokedexContext();
+            mPolygonContext = new PolygonStats.MySQLContext();
         }
 
         public void Process(int AccountId, PokedexEntryProto entry)
         {
             mSnapshotId = Guid.NewGuid();
-            mAccountId = AccountId;
+
+            using var polyContext = new MySQLContext();
+
+            //mAccountId = polyContext.Accounts.Where(x => x.Name == entry.;
             mEntry = entry;
 
             BeginSnapshot();
@@ -76,6 +82,11 @@ namespace Pokedex
         public void AddPokedexEntry()
         {
             using var context = new PokedexContext();
+
+            Snapshot snapshot = context.Snapshot.AsQueryable().Where(x => x.SnapshotId == mSnapshotId).First();
+
+            //var mExistingEntry = context.PokedexEntries.Join<Snapshot>(). 
+
             PokedexEntry pokedexEntry = new() { 
                 SnapshotId = mSnapshotId, 
                 timestamp = DateTime.UtcNow,
@@ -89,6 +100,8 @@ namespace Pokedex
                 TimesLuckyReceived = mEntry.TimesLuckyReceived,
                 TimesPurified = mEntry.TimesPurified
             };
+
+            //if(context.)
 
             //foreach (var form in mEntry.CapturedCostumes)
             //{
@@ -128,13 +141,20 @@ namespace Pokedex
 
                 foreach (var form in pokemon.Value.Forms)
                 {
-                    // Console.Write($"{GameMasterData.Default.FullData.Forms[form.ToString()].FormName}: {pokemon.Value.PokedexId}:{form}");
-                    if (form == pokemon.Value.DefaultFormId)
+                    if(pokemon.Value.PokedexId == 25)
                     {
-                        //Console.WriteLine($"");
-                       // Console.Write("  [DEFAULT]");
+                        //Console.Write($"{pokemon.Value.PokedexId}:{form},");
+                        //Console.Write($"{GameMasterData.Default.FullData.Forms[form.ToString()].FormName}: {pokemon.Value.PokedexId}:{form}");
+                        Console.Write($"{GameMasterData.Default.FullData.Forms[form.ToString()].Proto}");
+                        if (form == pokemon.Value.DefaultFormId)
+                        {
+                            Console.WriteLine($"");
+                            Console.Write("  [DEFAULT]");
+                        }
+                        Console.WriteLine();
                     }
-                    //Console.WriteLine();
+                   
+                    
                 }
                 //Console.WriteLine();
             }

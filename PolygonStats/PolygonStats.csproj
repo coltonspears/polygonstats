@@ -41,8 +41,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Plugins\Pokebox\" />
-    <Folder Include="Plugins\Pokedex\" />
+    <None Update="Plugins\HttpServer\Templates\nav.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

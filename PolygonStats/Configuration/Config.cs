@@ -56,6 +56,7 @@ namespace PolygonStats.Configuration
         {
             public bool Enabled { get; set; }
             public string PluginPath { get; set; }
+            public int Port { get; set; }
         }
 
         public class EncounterSettings
@@ -131,7 +132,8 @@ namespace PolygonStats.Configuration
             Plugin = new PluginSettings
             {
                 Enabled = true,
-                PluginPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}plugins"
+                PluginPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}plugins",
+                Port = 8900
             };
 
             Encounter = new EncounterSettings()

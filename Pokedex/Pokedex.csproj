@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,6 +6,10 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>C:\Users\colto\source\repos\polygonstats\PolygonStats\bin\Debug\net5.0\plugins\</OutputPath>
+      <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+      <Version>1.0.0</Version>
+      <AssemblyVersion>1.1.*</AssemblyVersion>
+      <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>

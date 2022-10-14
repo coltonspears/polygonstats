@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Serilog;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
-using PolygonStats.Plugins.Data;
-using PolygonStats.Configuration;
+using Serilog;
+using PolygonStatsPlugins.Configuration;
+using PolygonStatsPlugins.Data;
 
-namespace PolygonStats.Plugins
+namespace PolygonStatsPlugins
 {
     public abstract class Plugin
     {
@@ -40,7 +40,7 @@ namespace PolygonStats.Plugins
         public void InitializeDBContext(DbContext context)
         {
             PluginContext = context;
-            if (ConfigurationManager.Shared.Config.MySql.Enabled)
+            if (PluginConfigurationManager.Shared.PluginConfig.MySql.Enabled)
             {
                 PolygonContextManager = new MySQLConnectionManager();
             }
@@ -60,8 +60,8 @@ namespace PolygonStats.Plugins
         public GameMasterData()
         {
             string jsonString = File.ReadAllText(@"F:\PolygonBackend\Pogo-Data-Generator\masterfile.json");
-            Data = Plugins.PokemonData.FromJson(jsonString);
-            FullData = Plugins.Data.PokemonGameMaster.FromJson(File.ReadAllText(@"F:\PolygonBackend\Pogo-Data-Generator\master-latest-raw.json"));
+            Data = PokemonData.FromJson(jsonString);
+            FullData = PokemonGameMaster.FromJson(File.ReadAllText(@"F:\PolygonBackend\Pogo-Data-Generator\master-latest-raw.json"));
             foreach (var poke in Data.Pokemon)
             {
                 PokeDictionary[poke.Value.PokedexId] = poke.Value;

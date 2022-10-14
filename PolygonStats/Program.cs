@@ -49,18 +49,22 @@ namespace PolygonStats
 
             Log.Information($"TCP server port: {ConfigurationManager.Shared.Config.Backend.Port}");
 
+            PluginServer pluginServer = null;
             if (ConfigurationManager.Shared.Config.Plugin.Enabled)
             {
-                //PluginManager pluginManager = PluginManager.Shared.
-
                 PluginManager.Shared.LoadPlugins();
 
                 foreach (var key in PluginManager.Shared.Plugins.Keys)
                 {
                     PluginManager.Shared.Plugins[key].Start();
+                    Log.Information($"[{key}] Plugin Loaded...");
                 }
 
                 PluginManager.Shared.FindDbContextsInAssemblies();
+
+                
+                pluginServer = new PolygonStats.Plugins.PluginServer(ConfigurationManager.Shared.Config.Plugin.Port);
+                Log.Information($"Plugin HTTP Server started on port {ConfigurationManager.Shared.Config.Plugin.Port}");
             }
 
             // Create a new TCP chat server
@@ -91,6 +95,10 @@ namespace PolygonStats
             if (httpServer != null)
             {
                 httpServer.Stop();
+            }
+            if (pluginServer != null)
+            {
+                pluginServer.Stop();
             }
             Log.Information("Done!");
         }
