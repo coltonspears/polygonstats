@@ -1,7 +1,7 @@
+using PolygonStats.Common.Proto;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using POGOProtos.Rpc;
 
 namespace PolygonStats.Models
 {

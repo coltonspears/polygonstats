@@ -1,4 +1,5 @@
-﻿using POGOProtos.Rpc;
+﻿//using POGOProtos.Rpc;
+using PolygonStats.Common.Proto;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

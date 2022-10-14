@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using POGOProtos.Rpc;
+//using POGOProtos.Rpc;
 using System;
 using System.Linq;
 using Serilog;
@@ -11,6 +11,8 @@ using Google.Common.Geometry;
 using System.Data.SqlClient;
 using System.Collections;
 using MySqlConnector;
+using PolygonStats.Common;
+using PolygonStats.Common.Proto;
 
 namespace PolygonStats.RocketMap
 {

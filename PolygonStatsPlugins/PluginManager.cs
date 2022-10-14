@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PolygonStats.Common;
+using PolygonStats.Common.Proto;
 using PolygonStatsPlugins.Configuration;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace PolygonStatsPlugins
 
         public Dictionary<string, IPolygonPlugin> Plugins { get; private set; } = new Dictionary<string, IPolygonPlugin>();
         public Dictionary<Type, List<object>> PluginDBContexts = new Dictionary<Type, List<object>>();
-        public static string PluginPath => PluginConfigurationManager.Shared.PluginConfig.PluginPath;
+        public static string PluginPath => PluginConfigurationManager.Shared.Config.Plugin.PluginPath;
         
         public void LoadPlugins()
         {

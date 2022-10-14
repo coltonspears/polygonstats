@@ -1,5 +1,5 @@
-﻿using PolygonStats;
-using PolygonStats.Plugins;
+﻿using PolygonStats.Common;
+using PolygonStatsPlugins;
 using System;
 
 namespace Pokebox

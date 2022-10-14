@@ -1,15 +1,15 @@
-﻿using PolygonStats.Plugins;
+﻿using PolygonStatsPlugins;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using PolygonStats;
-using POGOProtos.Rpc;
 using System.Text.Json;
 using PokedexParser;
 using Pokedex.Models;
 using PolygonStats.Configuration;
+using PolygonStats.Common;
+using PolygonStats.Common.Proto;
 
 namespace Pokedex
 {
@@ -169,7 +169,7 @@ namespace Pokedex
                 if (holoInventory.InventoryDelta == null) return;
                 if (holoInventory.InventoryDelta.InventoryItem.Count <= 0) return;
 
-                int playerId = MySQLConnectionManager.GetAccountId(accountName);
+                int playerId = PolygonStats.MySQLConnectionManager.GetAccountId(accountName);
                 //var item = holoInventory.InventoryDelta.InventoryItem.First();
                 foreach (var req in holoInventory.InventoryDelta.InventoryItem)
                 {
@@ -193,58 +193,58 @@ namespace Pokedex
                                 //var pokemonFamily = PokedexEntry.FromJson(_.ToString());
                                 Log.Information($"[{accountName}]\t[FAMILY ]\t{pokemonFamily.FamilyId}\t{pokemonFamily.Candy}\t{pokemonFamily.XlCandy}");
                                 break;
-                            case HoloInventoryItemProto.TypeOneofCase.None:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.Pokemon:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.Item:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.PlayerStats:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.PlayerCurrency:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.PlayerCamera:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.InventoryUpgrades:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.AppliedItems:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.EggIncubators:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.Quest:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.AvatarItem:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.RaidTickets:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.Quests:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.GiftBoxes:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.BelugaIncense:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.RouteMaker:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.LimitedPurchaseSkuRecord:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.RoutePlay:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.MegaEvolveSpecies:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.Sticker:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.PokemonHome:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.BadgeData:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.PlayerStatsSnapshots:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.FakeData:
-                                break;
-                            case HoloInventoryItemProto.TypeOneofCase.PokedexCategoryMilestone:
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
+                            //case HoloInventoryItemProto.TypeOneofCase.None:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.Pokemon:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.Item:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.PlayerStats:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.PlayerCurrency:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.PlayerCamera:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.InventoryUpgrades:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.AppliedItems:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.EggIncubators:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.Quest:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.AvatarItem:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.RaidTickets:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.Quests:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.GiftBoxes:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.BelugaIncense:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.RouteMaker:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.LimitedPurchaseSkuRecord:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.RoutePlay:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.MegaEvolveSpecies:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.Sticker:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.PokemonHome:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.BadgeData:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.PlayerStatsSnapshots:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.FakeData:
+                            //    break;
+                            //case HoloInventoryItemProto.TypeOneofCase.PokedexCategoryMilestone:
+                            //    break;
+                            //default:
+                            //    throw new ArgumentOutOfRangeException();
                         }
                     }
 

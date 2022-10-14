@@ -14,7 +14,7 @@ namespace PolygonStatsPlugins.Configuration
         private static readonly Lazy<PluginConfigurationManager> _shared = new(() => new PluginConfigurationManager());
         public static PluginConfigurationManager Shared => _shared.Value;
 
-        public PluginConfig PluginConfig { get; set; } = new PluginConfig();
+        public Config Config { get; set; } = new Config();
         private PluginConfigurationManager()
         {
             ConfigurationBuilder configurationBuilder = new();
@@ -22,7 +22,7 @@ namespace PolygonStatsPlugins.Configuration
             _ = configurationBuilder.AddJsonFile(CONFIG_NAME, true, false);
             IConfiguration builtConfig = configurationBuilder.Build();
 
-            builtConfig.Bind(PluginConfig);
+            builtConfig.Bind(Config);
 
             if (!File.Exists(_JsonSource))
             {
@@ -38,7 +38,7 @@ namespace PolygonStatsPlugins.Configuration
                 WriteIndented = true
             };
             // open config file
-            string json = JsonSerializer.Serialize(PluginConfig, options);
+            string json = JsonSerializer.Serialize(Config, options);
             //write string to file
             File.WriteAllText(_JsonSource, json);
 

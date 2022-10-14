@@ -68,11 +68,11 @@ namespace PolygonStatsPlugins.HttpServer
             "  </body>" +
             "</html>";
 
-        public static readonly string _headerTempate = System.IO.File.ReadAllText(@"C:\Users\colto\source\repos\polygonstats\PolygonStats\Plugins\HttpServer\Templates\header.html");
+        public static readonly string _headerTempate = System.IO.File.ReadAllText(@"C:\Users\colto\source\repos\polygonstats\PolygonStatsPlugins\HttpServer\Templates\header.html");
 
-        public static readonly string _navTempate = System.IO.File.ReadAllText(@"C:\Users\colto\source\repos\polygonstats\PolygonStats\Plugins\HttpServer\Templates\nav.html");
+        public static readonly string _navTempate = System.IO.File.ReadAllText(@"C:\Users\colto\source\repos\polygonstats\PolygonStatsPlugins\HttpServer\Templates\nav.html");
 
-        public static readonly string _footerTempate = System.IO.File.ReadAllText(@"C:\Users\colto\source\repos\polygonstats\PolygonStats\Plugins\HttpServer\Templates\footer.html");
+        public static readonly string _footerTempate = System.IO.File.ReadAllText(@"C:\Users\colto\source\repos\polygonstats\PolygonStatsPlugins\HttpServer\Templates\footer.html");
 
         public static string getData()
         {

@@ -2,7 +2,7 @@
 using System.Text;
 using System.Net.Sockets;
 using NetCoreServer;
-using POGOProtos.Rpc;
+//using POGOProtos.Rpc;
 using Google.Protobuf.Collections;
 using static System.Linq.Queryable;
 using static System.Linq.Enumerable;
@@ -14,11 +14,14 @@ using PolygonStats.RawWebhook;
 using System.Globalization;
 using System.Threading;
 using PolyConfig = PolygonStats.Configuration.ConfigurationManager;
-using PolygonStats.Plugins;
-using Method = POGOProtos.Rpc.Method;
+//using Plugins = PolygonStatsPlugins;
+//using Method = POGOProtos.Rpc.Method;
+//using Method = PolygonStats.Common.Proto;
 using Newtonsoft.Json;
 using JsonException = Newtonsoft.Json.JsonException;
 using Newtonsoft.Json.Schema;
+using PolygonStats.Common.Proto;
+using PolygonStats.Common;
 
 namespace PolygonStats
 {
@@ -27,7 +30,7 @@ namespace PolygonStats
         private StringBuilder messageBuffer = new StringBuilder();
         private string accountName = null;
         private MySQLConnectionManager dbManager = new();
-        private PluginManager pluginManager = new();
+        private PolygonStatsPlugins.PluginManager pluginManager = new();
         private int dbSessionId = -1;
         private int accountId;
 
@@ -146,7 +149,7 @@ namespace PolygonStats
                     {
                         logger.Debug($"Handle JsonObject #{index} with {message.payloads.Count} payloads.");
                     }
-                    foreach (Payload payload in message.payloads)
+                    foreach (PolygonStats.Common.Payload payload in message.payloads)
                     {
                         if(payload.account_name == null || payload.account_name.Equals("null"))
                         {
@@ -220,7 +223,7 @@ namespace PolygonStats
 
         private void HandlePayload(Payload payload)
         {
-            if(PolyConfig.Shared.Config.Plugin.Enabled)
+            if(PolygonStatsPlugins.Configuration.PluginConfigurationManager.Shared.Config.Plugin.Enabled)
             {
                 pluginManager.HandlePayload(payload);
             }

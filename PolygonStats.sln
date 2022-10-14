@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex", "Pokedex\Pokedex.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokebox", "Pokebox\Pokebox.csproj", "{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolygonStatsPlugins", "PolygonStatusPlugins\PolygonStatsPlugins.csproj", "{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolygonStatsPlugins", "PolygonStatsPlugins\PolygonStatsPlugins.csproj", "{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolygonStatsCommon", "PolygonStatsCommon\PolygonStatsCommon.csproj", "{572359C1-69C0-4A8B-9D37-37F77EFE99C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,9 @@ using System.Threading;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using PolygonStats.Configuration;
-using PolygonStats.Plugins;
+using PolygonStatsPlugins;
+using PolygonStatsPlugins.HttpServer;
+using PolygonStatsPlugins.Configuration;
 
 namespace PolygonStats
 {
@@ -17,7 +19,6 @@ namespace PolygonStats
 
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
                 .WriteTo.Console()
-                .WriteTo.Seq("http://localhost:5432")
                 .WriteTo.File("logs/main.log", rollingInterval: RollingInterval.Day);
 
             if (ConfigurationManager.Shared.Config.Debug.Debug)
@@ -63,8 +64,8 @@ namespace PolygonStats
                 PluginManager.Shared.FindDbContextsInAssemblies();
 
                 
-                pluginServer = new PolygonStats.Plugins.PluginServer(ConfigurationManager.Shared.Config.Plugin.Port);
-                Log.Information($"Plugin HTTP Server started on port {ConfigurationManager.Shared.Config.Plugin.Port}");
+                pluginServer = new PluginServer(PluginConfigurationManager.Shared.Config.Http.Port);
+                Log.Information($"Plugin HTTP Server started on port {PluginConfigurationManager.Shared.Config.Http.Port}");
             }
 
             // Create a new TCP chat server

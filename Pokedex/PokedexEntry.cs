@@ -17,7 +17,7 @@ namespace Pokedex
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using POGOProtos.Rpc;
-    using PolygonStats.Plugins.Data;
+    using PolygonStatsPlugins.Data;
 
     [Table("PokedexEntry")]
     public partial class PokedexEntry

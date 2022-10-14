@@ -2,7 +2,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static POGOProtos.Rpc.PokemonDisplayProto.Types;
+using static PolygonStats.Common.Proto.PokemonDisplayProto.Types;
+//using static POGOProtos.Rpc.PokemonDisplayProto.Types;
 
 namespace PolygonStats.Models
 {
@@ -37,7 +38,7 @@ namespace PolygonStats.Models
         public ulong PokemonUniqueId { get; set; }
 
         [Column(TypeName = "nvarchar(24)")]
-        public HoloPokemonId PokemonName { get; set; }
+        public PolygonStats.Common.Proto.HoloPokemonId PokemonName { get; set; }
         public int PokedexId { get; set; }
         public int Attack { get; set; }
         public int Defense { get; set; }

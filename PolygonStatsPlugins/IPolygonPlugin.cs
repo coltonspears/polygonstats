@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PolygonStats;
+using PolygonStats.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PolygonStats.Plugins
+namespace PolygonStatsPlugins
 {
     public interface IPolygonPlugin
     {

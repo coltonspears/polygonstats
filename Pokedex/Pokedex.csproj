@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PolygonStatsCommon\PolygonStatsCommon.csproj" />
     <ProjectReference Include="..\PolygonStats\PolygonStats.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using POGOProtos.Rpc;
+using PolygonStats.Common.Proto;
 
-namespace PolygonStatsPlugins
+namespace PolygonStats.Common
 {
     public class Payload
     {
@@ -22,11 +22,11 @@ namespace PolygonStatsPlugins
 
         public byte[] getDate()
         {
-            return Convert.FromBase64String(this.proto);
+            return Convert.FromBase64String(proto);
         }
         public Method getMethodType()
         {
-            return (Method) this.type;
+            return (Method)type;
         }
     }
 

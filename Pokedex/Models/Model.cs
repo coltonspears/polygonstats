@@ -21,7 +21,7 @@ namespace Pokedex.Models
         public DbSet<PokedexEntry> PokedexEntries { get; set; }
         public DbSet<PokedexCategoryEntry> PokedexCategoryEntry { get; set; }
         public DbSet<Snapshot> Snapshot { get; set; }
-        public DbSet<PolygonStats.Plugins.Data.Pokemon> Pokemon { get; set; }
+        public DbSet<PolygonStatsPlugins.Data.Pokemon> Pokemon { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

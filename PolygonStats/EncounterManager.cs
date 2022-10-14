@@ -8,8 +8,9 @@ using static System.Linq.Enumerable;
 using PolygonStats.Configuration;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using POGOProtos.Rpc;
+//using POGOProtos.Rpc;
 using Microsoft.EntityFrameworkCore;
+using PolygonStats.Common.Proto;
 
 namespace PolygonStats
 {

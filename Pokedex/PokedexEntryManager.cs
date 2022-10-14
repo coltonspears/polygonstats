@@ -1,8 +1,7 @@
-﻿using POGOProtos.Rpc;
-using Pokedex.Models;
+﻿using Pokedex.Models;
 using PolygonStats;
-using PolygonStats.Models;
-using PolygonStats.Plugins;
+using PolygonStats.Common.Proto;
+//using PolygonStatsPlugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +22,7 @@ namespace Pokedex
         public PokedexEntryManager()
         {
             mPokedexContext = new PokedexContext();
-            mPolygonContext = new PolygonStats.MySQLContext();
+            //mPolygonContext = new PolygonStats.MySQLContext();
         }
 
         public void Process(int AccountId, PokedexEntryProto entry)
@@ -117,7 +116,7 @@ namespace Pokedex
             // ForeachPokemon
             // Foreach Form
             // Foreach Gender
-            foreach (var pokemon in GameMasterData.Default.FullData.Pokemon)
+            foreach (var pokemon in PolygonStatsPlugins.GameMasterData.Default.FullData.Pokemon)
             {
                 using var context = new PokedexContext();
 
@@ -145,7 +144,7 @@ namespace Pokedex
                     {
                         //Console.Write($"{pokemon.Value.PokedexId}:{form},");
                         //Console.Write($"{GameMasterData.Default.FullData.Forms[form.ToString()].FormName}: {pokemon.Value.PokedexId}:{form}");
-                        Console.Write($"{GameMasterData.Default.FullData.Forms[form.ToString()].Proto}");
+                        Console.Write($"{PolygonStatsPlugins.GameMasterData.Default.FullData.Forms[form.ToString()].Proto}");
                         if (form == pokemon.Value.DefaultFormId)
                         {
                             Console.WriteLine($"");

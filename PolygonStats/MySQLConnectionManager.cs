@@ -1,11 +1,12 @@
 ﻿using Google.Protobuf.Collections;
-using POGOProtos.Rpc;
+//using POGOProtos.Rpc;
 using PolygonStats.Models;
 using System;
 using static System.Linq.Queryable;
 using static System.Linq.Enumerable;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
+using PolygonStats.Common.Proto;
 
 namespace PolygonStats
 {

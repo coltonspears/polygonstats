@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using NetCoreServer;
-using PolygonStats.Plugins;
+using PolygonStatsPlugins;
 using Serilog;
 
 namespace PolygonStats
