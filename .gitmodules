@@ -1,3 +1,6 @@
 [submodule "PolygonStats/protos"]
 	path = PolygonStats/protos
 	url = https://github.com/Furtif/POGOProtos.git
+[submodule "PolygonStatsCommon/POGOProtos"]
+	path = PolygonStatsCommon/POGOProtos
+	url = https://github.com/Furtif/POGOProtos.git
