@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PolygonStats.Common;
-using PolygonStats.Common.Proto;
+//using PolygonStats.Common;
 using PolygonStatsPlugins.Configuration;
 using Serilog;
 using System;
@@ -58,7 +57,7 @@ namespace PolygonStatsPlugins
             }
             
         }
-        public void HandlePayload(Payload payload)
+        public void HandlePayload(dynamic payload)
         {
             foreach (IPolygonPlugin plugin in Shared.Plugins.Values)
             {

@@ -1,4 +1,5 @@
-﻿using PolygonStats.Common;
+﻿using PolygonStats;
+using PolygonStats.Common;
 using PolygonStatsPlugins;
 using System;
 

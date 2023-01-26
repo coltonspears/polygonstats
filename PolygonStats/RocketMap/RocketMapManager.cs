@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-//using POGOProtos.Rpc;
+using POGOProtos.Rpc;
 using System;
 using System.Linq;
 using Serilog;
@@ -11,11 +11,13 @@ using Google.Common.Geometry;
 using System.Data.SqlClient;
 using System.Collections;
 using MySqlConnector;
-using PolygonStats.Common;
-using PolygonStats.Common.Proto;
-using PolygonStatsCommon.Util;
+//using PolygonStats.Common;
+//using PolygonStatsCommon.Util;
 using Discord.Webhook;
 using Discord;
+using PolygonStats.Util;
+using PolygonStats.Common;
+using PolygonStats.Configuration;
 
 namespace PolygonStats.RocketMap
 {
@@ -49,13 +51,20 @@ namespace PolygonStats.RocketMap
             PokemonProto poke = encounter.Pokemon.Pokemon;
             if(poke.IsHundo())
             {
-                using (DiscordWebhookClient client = new DiscordWebhookClient("https://discord.com/api/webhooks/1035753226210910240/evGiyKAd922nr7ETSzN4evzNer9OVhLOPsNyBgL4rQVgp-mSdo3g33sRKr7hD9Rzc85F"))
+                ConfigurationManager.Shared.Config.Encounter.DiscordWebhooks.ForEach(hook =>
                 {
-                    string message = $"```[{payload.account_name}]\t[HUNDO]\t{poke.PokemonId}\t{poke.Cp}CP\t{poke.IndividualAttack}/{poke.IndividualDefense}/{poke.IndividualStamina}\tShiny: {poke.PokemonDisplay.Shiny}```";
+                    // Message can go here
 
-                    Log.Information(message);
-                    client.SendMessageAsync(message);
-                }
+                    //using (DiscordWebhookClient client = new DiscordWebhookClient(hook.WebhookUrl))
+                    //{
+                    //    string message = $"```[{payload.account_name}]\t[HUNDO]\t{poke.PokemonId}\t{poke.Cp}CP\t{poke.IndividualAttack}/{poke.IndividualDefense}/{poke.IndividualStamina}\tShiny: {poke.PokemonDisplay.Shiny}```";
+
+                    //    Log.Information(message);
+                    //    client.SendMessageAsync(message);
+                    //}
+                });
+
+                
                 
             }
             

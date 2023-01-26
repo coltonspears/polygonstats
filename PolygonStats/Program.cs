@@ -66,7 +66,6 @@ namespace PolygonStats
 
 
                 PluginHTTPServer = new PluginHTTPServer(PluginConfigurationManager.Shared.Config.Http.Port);
-                Log.Information($"Plugin HTTP Server started on port {PluginConfigurationManager.Shared.Config.Http.Port}");
             }
 
             // Create a new TCP chat server

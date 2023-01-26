@@ -1,12 +1,11 @@
 ﻿using Google.Protobuf.Collections;
-//using POGOProtos.Rpc;
+using POGOProtos.Rpc;
 using PolygonStats.Models;
 using System;
 using static System.Linq.Queryable;
 using static System.Linq.Enumerable;
-using Serilog;
 using Microsoft.EntityFrameworkCore;
-using PolygonStats.Common.Proto;
+using Serilog;
 
 namespace PolygonStats
 {
@@ -58,12 +57,12 @@ namespace PolygonStats
                 LogEntry pokemonLogEntry = new LogEntry { LogEntryType = LogEntryType.Pokemon, CaughtSuccess = catchedPokemon.Status == CatchPokemonOutProto.Types.Status.CatchSuccess, timestamp = DateTime.UtcNow };
                 if (catchedPokemon.Status == CatchPokemonOutProto.Types.Status.CatchSuccess)
                 {
-                    if (catchedPokemon.PokemonDisplay != null)
+                    if (catchedPokemon.PokemonDisplay1 != null)
                     {
-                        pokemonLogEntry.Shiny = catchedPokemon.PokemonDisplay.Shiny;
-                        pokemonLogEntry.Shadow = catchedPokemon.PokemonDisplay.Alignment == PokemonDisplayProto.Types.Alignment.Shadow;
-                        pokemonLogEntry.Form = catchedPokemon.PokemonDisplay.Form;
-                        pokemonLogEntry.Costume = catchedPokemon.PokemonDisplay.Costume;
+                        pokemonLogEntry.Shiny = catchedPokemon.PokemonDisplay1.Shiny;
+                        pokemonLogEntry.Shadow = catchedPokemon.PokemonDisplay1.Alignment == PokemonDisplayProto.Types.Alignment.Shadow;
+                        pokemonLogEntry.Form = catchedPokemon.PokemonDisplay1.Form;
+                        pokemonLogEntry.Costume = catchedPokemon.PokemonDisplay1.Costume;
                     }
                     pokemonLogEntry.PokemonUniqueId = catchedPokemon.CapturedPokemonId;
                     pokemonLogEntry.CandyAwarded = catchedPokemon.Scores.Candy.Sum();

@@ -1,6 +1,6 @@
-﻿using Pokedex.Models;
+﻿using POGOProtos.Rpc;
+using Pokedex.Models;
 using PolygonStats;
-using PolygonStats.Common.Proto;
 //using PolygonStatsPlugins;
 using System;
 using System.Collections.Generic;

@@ -19,7 +19,6 @@ namespace PolygonStatsPlugins.HttpServer
         public PluginHTTPServer(int port)
         {
             Initialize(port);
-            Log.Information($"Plugin HTTP Server started on port {port}");
         }
 
         public PluginHTTPServer()
@@ -81,6 +80,7 @@ namespace PolygonStatsPlugins.HttpServer
             Port = port;
             PluginServerThread = new Thread(this.Listen);
             PluginServerThread.Start();
+            Log.Information($"Plugin HTTP Server started on port {port}");
         }
 
         public void Dispose()

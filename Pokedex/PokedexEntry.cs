@@ -16,7 +16,7 @@ namespace Pokedex
     using Google.Protobuf.Collections;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
-    using POGOProtos.Rpc;
+    //using POGOProtos.Rpc;
     using PolygonStatsPlugins.Data;
 
     [Table("PokedexEntry")]

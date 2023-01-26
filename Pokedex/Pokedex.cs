@@ -1,5 +1,5 @@
 ﻿using PolygonStatsPlugins;
-using Serilog;
+//using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +8,13 @@ using System.Text.Json;
 using PokedexParser;
 using Pokedex.Models;
 using PolygonStats.Configuration;
+//using POGOProtos.Rpc;
+//using PolygonStats;
+//using POGOProtos.Rpc;
+using Serilog;
+using POGOProtos.Rpc;
+using PolygonStats;
 using PolygonStats.Common;
-using PolygonStats.Common.Proto;
 
 namespace Pokedex
 {

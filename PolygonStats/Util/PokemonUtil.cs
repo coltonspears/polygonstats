@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PolygonStatsCommon.Util
+namespace PolygonStats.Util
 {
     public class PokemonUtil
     {

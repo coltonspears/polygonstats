@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using POGOProtos.Rpc;
 //using POGOProtos.Rpc;
-using PolygonStats.Common;
-using PolygonStats.Common.Proto;
+//using PolygonStats.Common;
 
 namespace PolygonStats
 {
@@ -32,7 +32,7 @@ namespace PolygonStats
     //    }
     //}
 
-    //public class MessageObject
+    //public class POGOMessage
     //{
     //    public List<Payload> payloads { get; set; }
     //    public string key { get; set; }
