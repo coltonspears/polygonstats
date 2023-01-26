@@ -184,6 +184,10 @@ namespace PolygonStats
                             Value = $"CP: {pokemon.Cp}\nIVs:{pokemon.IndividualAttack}/{pokemon.IndividualDefense}/{pokemon.IndividualStamina} | {getIV(pokemon.IndividualAttack,pokemon.IndividualDefense,pokemon.IndividualStamina)}%"
                         },
                         new EmbedFieldBuilder(){
+                            Name = "Details",
+                            Value = $"Shiny:{(pokemon.PokemonDisplay.Shiny ? 'Y' : 'N')}"
+                        },
+                        new EmbedFieldBuilder(){
                             Name = "Moves",
                             Value = $"Fast: {formatMove(pokemon.Move1.ToString())}\nCharge: {formatMove(pokemon.Move2.ToString())}"
                         },
@@ -269,7 +273,7 @@ namespace PolygonStats
         }
 
 
-        public double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
+        public static double DistanceTo(double lat1, double lon1, double lat2, double lon2, char unit = 'K')
         {
             double rlat1 = Math.PI*lat1/180;
             double rlat2 = Math.PI*lat2/180;

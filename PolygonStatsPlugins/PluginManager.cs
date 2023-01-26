@@ -2,6 +2,7 @@
 using PolygonStats.Common;
 using PolygonStats.Common.Proto;
 using PolygonStatsPlugins.Configuration;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,33 +23,40 @@ namespace PolygonStatsPlugins
         
         public void LoadPlugins()
         {
-            foreach(var dll in Directory.GetFiles(PluginPath, "*.dll"))
+            try
             {
-                Assembly assembly = Assembly.LoadFile(dll);
-                foreach (Type type in assembly.GetTypes())
+                foreach (var dll in Directory.GetFiles(PluginPath, "*.dll"))
                 {
-                    if (type.IsSubclassOf(typeof(Plugin)) && type.IsAbstract == false)
+                    Assembly assembly = Assembly.LoadFile(dll);
+                    foreach (Type type in assembly.GetTypes())
                     {
-                        IPolygonPlugin plugin = Activator.CreateInstance(type) as IPolygonPlugin;
-                        Plugins.Add(Path.GetFileNameWithoutExtension(dll), plugin);
-                    }
-                    if (type.IsSubclassOf(typeof(DbContext)))
-                    {
-                        // Instantiate DbContext:
-                        var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
+                        if (type.IsSubclassOf(typeof(Plugin)) && type.IsAbstract == false)
+                        {
+                            IPolygonPlugin plugin = Activator.CreateInstance(type) as IPolygonPlugin;
+                            Plugins.Add(Path.GetFileNameWithoutExtension(dll), plugin);
+                        }
+                        if (type.IsSubclassOf(typeof(DbContext)))
+                        {
+                            // Instantiate DbContext:
+                            var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
 
-                        // Find method to get entities:
-                        var model = type.GetProperty("Model");
-                        var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
+                            // Find method to get entities:
+                            var model = type.GetProperty("Model");
+                            var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
 
-                        // Get registered entities:
-                        var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
+                            // Get registered entities:
+                            var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
 
-                        PluginDBContexts[type] = entities;
+                            PluginDBContexts[type] = entities;
+                        }
                     }
                 }
-
+            } 
+            catch(DirectoryNotFoundException e)
+            {
+                Log.Error($"Plugin directory does not exist...");
             }
+            
         }
         public void HandlePayload(Payload payload)
         {

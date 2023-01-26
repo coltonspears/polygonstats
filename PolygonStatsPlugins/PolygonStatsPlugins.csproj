@@ -25,6 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="HttpServer\Templates\footer.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="HttpServer\Templates\header.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="HttpServer\Templates\nav.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

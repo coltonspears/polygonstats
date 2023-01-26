@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pokedex
+namespace Pokedex.Utils
 {
     public static class DbSetExtensions
     {
@@ -30,7 +30,7 @@ namespace Pokedex
             }
             else
             {
-                dbSet.Add(entity);             
+                dbSet.Add(entity);
             }
             return entity;
         }

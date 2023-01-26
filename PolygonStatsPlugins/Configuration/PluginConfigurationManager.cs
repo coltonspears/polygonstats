@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Serilog;
 using System;
 using System.IO;
 using System.Text.Json;
@@ -29,7 +30,7 @@ namespace PolygonStatsPlugins.Configuration
                 Save();
             }
 
-            Console.WriteLine("Config was loaded!");
+            Log.Information("[Plugin Manager] Config was loaded!");
         }
         public void Save()
         {

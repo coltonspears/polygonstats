@@ -138,16 +138,16 @@ namespace PolygonStats.Configuration
 
             Encounter = new EncounterSettings()
             {
-                Enabled = false,
-                SaveToDatabase = false,
+                Enabled = true,
+                SaveToDatabase = true,
                 DiscordWebhooks = new List<EncounterSettings.WebhookSettings>(){
                     new EncounterSettings.WebhookSettings() {
-                        WebhookUrl = "discord webhook url",
-                        FilterByIV = false,
-                        OnlyEqual = false,
-                        MinAttackIV = 0,
-                        MinDefenseIV = 0,
-                        MinStaminaIV = 0,
+                        WebhookUrl = "",
+                        FilterByIV = true,
+                        OnlyEqual = true,
+                        MinAttackIV = 14,
+                        MinDefenseIV = 14,
+                        MinStaminaIV = 14,
                         FilterByLocation = false,
                         Latitude = 0.1,
                         Longitude = 0.1,

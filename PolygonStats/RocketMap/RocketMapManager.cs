@@ -13,6 +13,9 @@ using System.Collections;
 using MySqlConnector;
 using PolygonStats.Common;
 using PolygonStats.Common.Proto;
+using PolygonStatsCommon.Util;
+using Discord.Webhook;
+using Discord;
 
 namespace PolygonStats.RocketMap
 {
@@ -44,7 +47,18 @@ namespace PolygonStats.RocketMap
         public void AddEncounter(EncounterOutProto encounter, Payload payload)
         {
             PokemonProto poke = encounter.Pokemon.Pokemon;
-            Log.Information($"[{payload.account_name}]\t[Encounter]\t{poke.PokemonId}\t{poke.Cp}CP\t{poke.IndividualAttack}/{poke.IndividualDefense}/{poke.IndividualStamina}");
+            if(poke.IsHundo())
+            {
+                using (DiscordWebhookClient client = new DiscordWebhookClient("https://discord.com/api/webhooks/1035753226210910240/evGiyKAd922nr7ETSzN4evzNer9OVhLOPsNyBgL4rQVgp-mSdo3g33sRKr7hD9Rzc85F"))
+                {
+                    string message = $"```[{payload.account_name}]\t[HUNDO]\t{poke.PokemonId}\t{poke.Cp}CP\t{poke.IndividualAttack}/{poke.IndividualDefense}/{poke.IndividualStamina}\tShiny: {poke.PokemonDisplay.Shiny}```";
+
+                    Log.Information(message);
+                    client.SendMessageAsync(message);
+                }
+                
+            }
+            
             using (var context = new RocketMapContext())
             {
                 long spawnpointId = Convert.ToInt64(encounter.Pokemon.SpawnPointId, 16);

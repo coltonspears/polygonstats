@@ -15,20 +15,18 @@ namespace PolygonStatsPlugins
     {
         public virtual string Name { get => this.GetType().Name; }
         public virtual string Version { get => this.GetType().Assembly.GetName().Version.ToString(); }
+        public virtual bool Enabled { get => true; }
         public virtual string FullName { get => this.GetType().FullName; }
         public virtual string AssemblyLocation { get => this.GetType().Assembly.Location; }
         public virtual string AssemblyName { get => this.GetType().Module.Name; }
+        public IPluginConfig Config { get; set; }
+
         public DbContext PluginContext { get; set; }
         public GameMasterData MasterData { get; set; }
         public MySQLConnectionManager PolygonContextManager { get; set; }
-        public virtual bool Enabled { get; set; }
+        
 
-        //public abstract void SetEnabled();
-
-        //public Plugin(Plugin other)
-        //{
-        //    Enabled = other.Enabled;
-        //}
+        public abstract void LoadConfig();
 
         public Plugin()
         {
@@ -49,6 +47,8 @@ namespace PolygonStatsPlugins
     }
     public class GameMasterData
     {
+        // This doesn't really make sense here plus the master file changes too often.
+        // TODO: Remove references to this.
         private static readonly Lazy<GameMasterData> _default = new(() => new GameMasterData());
         public static GameMasterData Default => _default.Value;
 
@@ -59,6 +59,7 @@ namespace PolygonStatsPlugins
 
         public GameMasterData()
         {
+            // TODO: Get rid of hardcoded paths
             string jsonString = File.ReadAllText(@"F:\PolygonBackend\Pogo-Data-Generator\masterfile.json");
             Data = PokemonData.FromJson(jsonString);
             FullData = PokemonGameMaster.FromJson(File.ReadAllText(@"F:\PolygonBackend\Pogo-Data-Generator\master-latest-raw.json"));

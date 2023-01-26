@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 using System.IO;
 using System.Text.Json;
@@ -29,7 +30,7 @@ namespace PolygonStats.Configuration
             }
             Config.Encounter.DiscordWebhooks.RemoveAt(0);
 
-            Console.WriteLine("Config was loaded!");
+            Log.Information("Config was loaded!");
         }
 
         public void Save()

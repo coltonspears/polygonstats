@@ -6,7 +6,6 @@ namespace Pokebox
 {
     public class Pokebox : Plugin, IPolygonPlugin
     {
-        public bool Enabled { get; private set; }
 
         //public Pokebox(Plugin plugin) : base(plugin)
         //{
@@ -20,6 +19,11 @@ namespace Pokebox
         public void HandlePayload(Payload payload)
         {
             
+        }
+
+        public override void LoadConfig()
+        {
+            throw new NotImplementedException();
         }
     }
 }

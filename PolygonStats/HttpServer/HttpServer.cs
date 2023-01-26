@@ -57,7 +57,7 @@ namespace PolygonStats.HttpServer
         {
             _listener = new HttpListener();
             _listener.Prefixes.Clear();
-            _listener.Prefixes.Add($"http://*:{_port.ToString()}/");
+            _listener.Prefixes.Add($"http://localhost:{_port.ToString()}/");
             _listener.Start();
             while (_listener.IsListening)
             {

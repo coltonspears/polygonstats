@@ -13,6 +13,8 @@ namespace PolygonStats
 {
     class Program
     {
+        public static PluginHTTPServer PluginHTTPServer { get; set; }
+
         static void Main(string[] args)
         {
             //PluginManager pluginManager = new PluginManager();
@@ -50,7 +52,6 @@ namespace PolygonStats
 
             Log.Information($"TCP server port: {ConfigurationManager.Shared.Config.Backend.Port}");
 
-            PluginServer pluginServer = null;
             if (ConfigurationManager.Shared.Config.Plugin.Enabled)
             {
                 PluginManager.Shared.LoadPlugins();
@@ -63,8 +64,8 @@ namespace PolygonStats
 
                 PluginManager.Shared.FindDbContextsInAssemblies();
 
-                
-                pluginServer = new PluginServer(PluginConfigurationManager.Shared.Config.Http.Port);
+
+                PluginHTTPServer = new PluginHTTPServer(PluginConfigurationManager.Shared.Config.Http.Port);
                 Log.Information($"Plugin HTTP Server started on port {PluginConfigurationManager.Shared.Config.Http.Port}");
             }
 
@@ -92,15 +93,13 @@ namespace PolygonStats
             // Stop the server
             Log.Information("Server stopping...");
             server.Stop();
-            EncounterManager.shared.Dispose();
+            //EncounterManager.shared.Dispose();
+
             if (httpServer != null)
             {
                 httpServer.Stop();
             }
-            if (pluginServer != null)
-            {
-                pluginServer.Stop();
-            }
+
             Log.Information("Done!");
         }
     }

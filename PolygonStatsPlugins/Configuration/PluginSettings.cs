@@ -41,7 +41,7 @@ namespace PolygonStatsPlugins.Configuration
             Plugin = new PluginSettings()
             {
                 Enabled = true,
-                PluginPath = @"C:\Users\colto\source\repos\polygonstats\PolygonStats\bin\Debug\net5.0\plugins\net5.0"
+                PluginPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}plugins{Path.DirectorySeparatorChar}"
             };
 
             MySql = new MysqlSettings()

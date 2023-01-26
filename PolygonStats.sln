@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolygonStats", "PolygonStats\PolygonStats.csproj", "{28546A96-F57D-4141-AFD1-603B252B4379}"
 EndProject
@@ -11,32 +11,43 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokebox", "Pokebox\Pokebox.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolygonStatsPlugins", "PolygonStatsPlugins\PolygonStatsPlugins.csproj", "{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolygonStatsCommon", "PolygonStatsCommon\PolygonStatsCommon.csproj", "{572359C1-69C0-4A8B-9D37-37F77EFE99C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolygonStatsCommon", "PolygonStatsCommon\PolygonStatsCommon.csproj", "{572359C1-69C0-4A8B-9D37-37F77EFE99C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugCopy|Any CPU = DebugCopy|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28546A96-F57D-4141-AFD1-603B252B4379}.DebugCopy|Any CPU.ActiveCfg = Debug|Any CPU
+		{28546A96-F57D-4141-AFD1-603B252B4379}.DebugCopy|Any CPU.Build.0 = Debug|Any CPU
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28546A96-F57D-4141-AFD1-603B252B4379}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.DebugCopy|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.DebugCopy|Any CPU.Build.0 = Debug|Any CPU
 		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCA6AD87-0FB8-477F-9F7F-84071531E94E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.DebugCopy|Any CPU.ActiveCfg = DebugCopy|Any CPU
+		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.DebugCopy|Any CPU.Build.0 = DebugCopy|Any CPU
 		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA99628A-BF8B-4A2C-AF6A-C97A7FCCC242}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.DebugCopy|Any CPU.ActiveCfg = Debug|Any CPU
+		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.DebugCopy|Any CPU.Build.0 = Debug|Any CPU
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E58E40-18D7-4BFE-B5E0-48E8EED1013D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.DebugCopy|Any CPU.ActiveCfg = Debug|Any CPU
+		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.DebugCopy|Any CPU.Build.0 = Debug|Any CPU
 		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{572359C1-69C0-4A8B-9D37-37F77EFE99C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

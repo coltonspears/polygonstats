@@ -3,10 +3,12 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using System.Text;
+using Serilog;
+using PolygonStatsPlugins.Configuration;
 
 namespace PolygonStatsPlugins.HttpServer
 {
-    public class PluginServer
+    public class PluginHTTPServer: IDisposable
     {
 
         private Thread PluginServerThread { get; set; }
@@ -14,12 +16,13 @@ namespace PolygonStatsPlugins.HttpServer
         public int Port { get; private set; }
 
 
-        public PluginServer(int port)
+        public PluginHTTPServer(int port)
         {
             Initialize(port);
+            Log.Information($"Plugin HTTP Server started on port {port}");
         }
 
-        public PluginServer()
+        public PluginHTTPServer()
         {
             TcpListener l = new TcpListener(IPAddress.Loopback, 0);
             l.Start();
@@ -37,7 +40,7 @@ namespace PolygonStatsPlugins.HttpServer
         {
             Listener = new HttpListener();
             Listener.Prefixes.Clear();
-            Listener.Prefixes.Add($"http://*:{Port}/");
+            Listener.Prefixes.Add($"http://localhost:{Port}/");
             Listener.Start();
             while (Listener.IsListening)
             {
@@ -54,7 +57,7 @@ namespace PolygonStatsPlugins.HttpServer
         {
             try
             {
-                byte[] data = Encoding.UTF8.GetBytes(PluginHttpHelper.getData());
+                byte[] data = Encoding.UTF8.GetBytes(PluginHttpHelper.GetData());
 
                 context.Response.ContentType = "text/html";
                 context.Response.ContentEncoding = Encoding.UTF8;
@@ -78,6 +81,12 @@ namespace PolygonStatsPlugins.HttpServer
             Port = port;
             PluginServerThread = new Thread(this.Listen);
             PluginServerThread.Start();
+        }
+
+        public void Dispose()
+        {
+            Log.Information("Plugin HTTP Server stopping...");
+            Stop();
         }
     }
 }
