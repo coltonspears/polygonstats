@@ -21,30 +21,10 @@ namespace Pokedex
     public class Pokedex : Plugin, IPolygonPlugin
     {
 
-        //public Pokedex(Plugin plugin) : base(plugin)
-        //{
-        //    Enabled = true;
-        //}
-        //private readonly bool _enabled;
-
         public LoggerConfiguration loggerConfiguration;
 
         public void Start()
         {
-            //LoggerConfiguration loggerConfiguration = new LoggerConfiguration()
-            //    .WriteTo.Console()
-            //    .WriteTo.Seq("http://localhost:5432")
-            //    .WriteTo.File("logs/main.log", rollingInterval: RollingInterval.Day);
-
-            //if (ConfigurationManager.Shared.Config.Debug.Debug)
-            //{
-            //    loggerConfiguration = loggerConfiguration.MinimumLevel.Debug();
-            //}
-            //else
-            //{
-            //    loggerConfiguration = loggerConfiguration.MinimumLevel.Information();
-            //}
-            //Log.Logger = loggerConfiguration.CreateLogger();
 
             base.InitializeDBContext(new PokedexContext());
             PokedexEntryManager.GetAllForms();
