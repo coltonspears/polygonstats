@@ -12,10 +12,9 @@ using System.Data.SqlClient;
 using System.Collections;
 using MySqlConnector;
 //using PolygonStats.Common;
-//using PolygonStatsCommon.Util;
+using PolygonStatsCommon.Util;
 using Discord.Webhook;
 using Discord;
-using PolygonStats.Util;
 using PolygonStats.Common;
 using PolygonStats.Configuration;
 
