@@ -15,6 +15,8 @@ namespace Pokebox
         
         public void AddPokeboxToDatabase(Guid extractId, RepeatedField<global::POGOProtos.Rpc.InventoryItemProto> inventoryItem)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            
             Log.Information($"[Pokebox] Saving Pokemon Storage Snapshot with id: {extractId}");
             using (var context = new PokeboxContext())
             {
@@ -22,7 +24,7 @@ namespace Pokebox
                 {
                     if (item.InventoryItemData?.Pokemon != null)
                     {
-
+                        
                         PokemonProto pokemon = item.InventoryItemData?.Pokemon;
                         if (pokemon.Cp > 0)
                         {
@@ -50,10 +52,14 @@ namespace Pokebox
                             context.PokeboxEntries.Add(pokeboxEntry);
                         }
                     }
-                    context.SaveChanges();
+                    //context.SaveChanges();
+                    
                 }
+                context.SaveChanges();
+                //context.BulkSaveChanges();
             }
-            Log.Information($"[Pokebox] Completed Pokemon Storage Snapshot with id: {extractId}");
+            watch.Stop();
+            Log.Information($"[Pokebox] Completed Pokemon Storage Snapshot with id: {extractId}. Execution Time: {watch.ElapsedMilliseconds} ms");
         }
     }
 }

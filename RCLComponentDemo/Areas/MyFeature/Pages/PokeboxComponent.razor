@@ -1,0 +1,61 @@
+﻿@page "/PokeboxComponent"
+
+@using PluginWebServer.Data
+@using Microsoft.EntityFrameworkCore
+@using global::Pokebox.Models;
+@using global::Pokebox;
+
+@inject IDbContextFactory<PokeboxContext> ContextFactory
+
+<PageTitle>Pokebox Component</PageTitle>
+
+<h1>Pokemon Storage</h1>
+
+@if (pokebox == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Extract</th>
+                <th>Pokemon Id</th>
+                <th>IVs</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var poke in pokebox)
+            {
+                <tr>
+                    <td>@poke.ExtractId</td>
+                    <td>@poke.PokemonUniqueId</td>
+                    <td>@poke.IndividualAttack\@poke.IndividualStamina\@poke.IndividualDefense</td>
+                    <td>@poke.timestamp</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+
+    private List<PokeboxEntry> pokebox;
+    //private PokeboxService PokeboxService;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using (var ctx = ContextFactory.CreateDbContext())
+        {
+            Guid latestExtract = ctx.PokeboxEntries.OrderByDescending(x => x.timestamp).FirstOrDefault().ExtractId;
+
+            pokebox = await ctx.PokeboxEntries.Where(x => x.ExtractId == latestExtract).ToListAsync<PokeboxEntry>();
+        }
+        
+    }
+}

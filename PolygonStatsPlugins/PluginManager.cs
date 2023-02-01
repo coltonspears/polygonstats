@@ -34,20 +34,25 @@ namespace PolygonStatsPlugins
                             IPolygonPlugin plugin = Activator.CreateInstance(type) as IPolygonPlugin;
                             Plugins.Add(Path.GetFileNameWithoutExtension(dll), plugin);
                         }
-                        if (type.IsSubclassOf(typeof(DbContext)))
+
+                        if(PluginConfigurationManager.Shared.Config.MySql.Enabled)
                         {
-                            // Instantiate DbContext:
-                            var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
+                            if (type.IsSubclassOf(typeof(DbContext)))
+                            {
+                                // Instantiate DbContext:
+                                var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
 
-                            // Find method to get entities:
-                            var model = type.GetProperty("Model");
-                            var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
+                                // Find method to get entities:
+                                var model = type.GetProperty("Model");
+                                var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
 
-                            // Get registered entities:
-                            var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
+                                // Get registered entities:
+                                var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
 
-                            PluginDBContexts[type] = entities;
+                                PluginDBContexts[type] = entities;
+                            }
                         }
+                        
                     }
                 }
             } 
@@ -66,33 +71,38 @@ namespace PolygonStatsPlugins
         }
         public Dictionary<Type, List<object>> FindDbContextsInAssemblies()
         {
+
             var dbContexts = new Dictionary<Type, List<object>>();
 
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-            foreach (var assembly in assemblies)
+            if(PluginConfigurationManager.Shared.Config.MySql.Enabled)
             {
-                foreach (var type in assembly.GetTypes())
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+                foreach (var assembly in assemblies)
                 {
-                    if (type.IsSubclassOf(typeof(DbContext)))
+                    foreach (var type in assembly.GetTypes())
                     {
-                        // Instantiate DbContext:
-                        var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
+                        if (type.IsSubclassOf(typeof(DbContext)))
+                        {
+                            // Instantiate DbContext:
+                            var context = type.GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>());
 
-                        // Find method to get entities:
-                        var model = type.GetProperty("Model");
-                        var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
+                            // Find method to get entities:
+                            var model = type.GetProperty("Model");
+                            var searchMethod = model.PropertyType.GetMethod("GetEntityTypes");
 
-                        // Get registered entities:
-                        var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
+                            // Get registered entities:
+                            var entities = searchMethod.Invoke(model.GetValue(context, null), null) as List<object>;
 
-                        var optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(type);
-                        var optionsBuilder = (DbContextOptionsBuilder)Activator.CreateInstance(optionsBuilderType);
-                        var dbCtx = (DbContext)Activator.CreateInstance(type);
-                        dbContexts[type] = entities;
+                            var optionsBuilderType = typeof(DbContextOptionsBuilder<>).MakeGenericType(type);
+                            var optionsBuilder = (DbContextOptionsBuilder)Activator.CreateInstance(optionsBuilderType);
+                            var dbCtx = (DbContext)Activator.CreateInstance(type);
+                            dbContexts[type] = entities;
+                        }
                     }
                 }
             }
+            
 
             return dbContexts;
         }

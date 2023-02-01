@@ -81,6 +81,7 @@ namespace PolygonStatsPlugins.HttpServer
             PluginServerThread = new Thread(this.Listen);
             PluginServerThread.Start();
             Log.Information($"Plugin HTTP Server started on port {port}");
+            Log.Information($"Plugin Blazor App started [Experimental]");
         }
 
         public void Dispose()
