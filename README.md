@@ -3,9 +3,10 @@
 PolygonStats is a backend server for polygon# to connect to. 
 
 ### Requirement
-.Net 5: https://dotnet.microsoft.com/download/dotnet/5.0
+.Net 7: https://dotnet.microsoft.com/en-us/download/dotnet/7.0
 
-Microsoft Visual C++ Redistributable für Visual Studio 2015, 2017 und 2019: https://support.microsoft.com/de-de/topic/aktuelle-unterst%C3%BCtzte-downloads-f%C3%BCr-visual-c-2647da03-1eea-4433-9aff-95f26a218cc0
+Microsoft Visual C++ Redistribution For Visual Studio 2015, 2017, 2019, and 2022
+https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170
 
 ## Run
 
